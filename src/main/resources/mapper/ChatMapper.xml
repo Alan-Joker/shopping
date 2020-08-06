@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shopping.dao.ChatMapper">
+  <resultMap id="BaseResultMap" type="com.example.shopping.Entity.Chat">
+    <id column="chatId" jdbcType="INTEGER" property="chatid" />
+    <result column="sendUser" jdbcType="INTEGER" property="senduser" />
+    <result column="receiveUser" jdbcType="INTEGER" property="receiveuser" />
+    <result column="MsgContent" jdbcType="VARCHAR" property="msgcontent" />
+    <result column="MsgTime" jdbcType="TIMESTAMP" property="msgtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    chatId, sendUser, receiveUser, MsgContent, MsgTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chat
+    where chatId = #{chatid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from chat
+    where chatId = #{chatid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.shopping.Entity.Chat">
+    insert into chat (chatId, sendUser, receiveUser, 
+      MsgContent, MsgTime)
+    values (#{chatid,jdbcType=INTEGER}, #{senduser,jdbcType=INTEGER}, #{receiveuser,jdbcType=INTEGER}, 
+      #{msgcontent,jdbcType=VARCHAR}, #{msgtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.shopping.Entity.Chat">
+    insert into chat
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="chatid != null">
+        chatId,
+      </if>
+      <if test="senduser != null">
+        sendUser,
+      </if>
+      <if test="receiveuser != null">
+        receiveUser,
+      </if>
+      <if test="msgcontent != null">
+        MsgContent,
+      </if>
+      <if test="msgtime != null">
+        MsgTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="chatid != null">
+        #{chatid,jdbcType=INTEGER},
+      </if>
+      <if test="senduser != null">
+        #{senduser,jdbcType=INTEGER},
+      </if>
+      <if test="receiveuser != null">
+        #{receiveuser,jdbcType=INTEGER},
+      </if>
+      <if test="msgcontent != null">
+        #{msgcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="msgtime != null">
+        #{msgtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.shopping.Entity.Chat">
+    update chat
+    <set>
+      <if test="senduser != null">
+        sendUser = #{senduser,jdbcType=INTEGER},
+      </if>
+      <if test="receiveuser != null">
+        receiveUser = #{receiveuser,jdbcType=INTEGER},
+      </if>
+      <if test="msgcontent != null">
+        MsgContent = #{msgcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="msgtime != null">
+        MsgTime = #{msgtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where chatId = #{chatid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.shopping.Entity.Chat">
+    update chat
+    set sendUser = #{senduser,jdbcType=INTEGER},
+      receiveUser = #{receiveuser,jdbcType=INTEGER},
+      MsgContent = #{msgcontent,jdbcType=VARCHAR},
+      MsgTime = #{msgtime,jdbcType=TIMESTAMP}
+    where chatId = #{chatid,jdbcType=INTEGER}
+  </update>
+</mapper>

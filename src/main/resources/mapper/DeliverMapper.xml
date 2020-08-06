@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shopping.dao.DeliverMapper">
+  <resultMap id="BaseResultMap" type="com.example.shopping.Entity.Deliver">
+    <id column="deliverId" jdbcType="INTEGER" property="deliverid" />
+    <result column="orderId" jdbcType="INTEGER" property="orderid" />
+    <result column="sendId" jdbcType="INTEGER" property="sendid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    deliverId, orderId, sendId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from deliver
+    where deliverId = #{deliverid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from deliver
+    where deliverId = #{deliverid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.shopping.Entity.Deliver">
+    insert into deliver (deliverId, orderId, sendId
+      )
+    values (#{deliverid,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, #{sendid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.shopping.Entity.Deliver">
+    insert into deliver
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deliverid != null">
+        deliverId,
+      </if>
+      <if test="orderid != null">
+        orderId,
+      </if>
+      <if test="sendid != null">
+        sendId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deliverid != null">
+        #{deliverid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null">
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="sendid != null">
+        #{sendid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.shopping.Entity.Deliver">
+    update deliver
+    <set>
+      <if test="orderid != null">
+        orderId = #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="sendid != null">
+        sendId = #{sendid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where deliverId = #{deliverid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.shopping.Entity.Deliver">
+    update deliver
+    set orderId = #{orderid,jdbcType=INTEGER},
+      sendId = #{sendid,jdbcType=INTEGER}
+    where deliverId = #{deliverid,jdbcType=INTEGER}
+  </update>
+</mapper>

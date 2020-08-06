@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shopping.dao.UserMapper">
+
+    <!--保存用户信息-->
+    <insert id="saveUser" parameterType="User">
+        insert into user(username,password,email,telephone,regTime)
+         values(#{username},#{password},#{email},#{telephone},#{regTime})
+    </insert>
+    <!--通过用户id修改个人信息-->
+    <update id="updateById">
+        update user
+        <set>
+        <if test="telephone !=null">
+            telephone=#{telephone},
+        </if>
+        <if test="email">
+            email=#{email},
+        </if>
+        </set>
+        where userId=#{userId}
+    </update>
+    <update id="updatePassword">
+        update user
+        <set>
+            <if test="password !=null">
+                password=#{password},
+            </if>
+        </set>
+        where userId=#{userId}
+    </update>
+    <delete id="deleteById" parameterType="int">
+        delete from user where userId=#{userId}
+    </delete>
+
+
+    <!--通过用户名密码查询用户是否存在-->
+    <select id="findAllByUsername" resultType="User" parameterType="User">
+        select * from user where username=#{username} and password=#{password}
+    </select>
+
+    <select id="findAllByName" resultType="com.example.shopping.Entity.User">
+        select * from user where username=#{username}
+    </select>
+    <select id="findAll" resultType="com.example.shopping.Entity.User">
+        select * from user
+    </select>
+    <select id="findById" resultType="com.example.shopping.Entity.User">
+        select * from user where userId=#{id}
+    </select>
+</mapper>

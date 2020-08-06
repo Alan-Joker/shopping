@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shopping.dao.FavoriteMapper">
+
+    <insert id="addFavorite">
+        insert into collection(userId,goodsId,collectTime) values(#{uid},#{gid},#{date})
+    </insert>
+    <delete id="delete">
+        delete from collection where userId=#{userid} and goodsId=#{goodsid}
+    </delete>
+    <select id="findById" resultType="int">
+        select count(*) from collection where userId=#{userid} and goodsId=#{goodsid}
+    </select>
+    <select id="findGoodId" resultType="java.lang.Integer">
+        select goodsId from collection where userId =#{userId}
+    </select>
+</mapper>
